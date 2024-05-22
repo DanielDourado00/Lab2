@@ -37,7 +37,7 @@ export default function TelaInicio() {
             {showButton && (
                 <Button
                     title="Mostrar dias da semana"
-                    onPress={() => handleDayPress("MostrarDias")} // Passar o nome da tela a ser exibida
+                    onPress={() => handleDayPress("")} // Passar uma string vazia para não navegar para outra tela
                 />
             )}
             {showList && (
