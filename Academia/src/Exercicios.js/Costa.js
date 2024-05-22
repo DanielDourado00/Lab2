@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, ImageBackground } from 'react-native';
 
 const initialBackExercises = [
     'Puxada Frontal - 4 séries de 10-12 repetições',
@@ -47,57 +47,69 @@ export default function TelaInicio() {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <Text style={styles.title}>Treino de Costas</Text>
-                {activeExercises.map((exercise, index) => (
-                    <TouchableOpacity
-                        key={exercise.index}
-                        onPress={() => toggleExercise(index)}
-                        style={styles.exerciseContainer}
-                    >
-                        <View style={styles.checkbox} />
-                        <Text style={styles.exerciseText}>{exercise.name}</Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
-            <View style={styles.footer}>
-                <Button
-                    title={showCompleted ? "Ocultar Concluídos" : "Conferir Concluídos"}
-                    onPress={toggleCompletedVisibility}
-                />
-                {showCompleted && (
-                    <View style={styles.completedContainer}>
-                        {completedExercises.length > 0 ? (
-                            completedExercises.map((exercise, index) => (
-                                <TouchableOpacity
-                                    key={exercise.index}
-                                    onPress={() => unmarkExercise(index)}
-                                    style={styles.exerciseContainer}
-                                >
-                                    <View style={[styles.checkbox, styles.checkboxChecked]} />
-                                    <Text style={styles.exerciseText}>{exercise.name}</Text>
-                                </TouchableOpacity>
-                            ))
-                        ) : (
-                            <Text style={styles.noCompletedText}>Não há exercícios concluídos</Text>
-                        )}
+        <ImageBackground
+            source={require("../Imagens/backgroundgym.png")}
+            style={styles.backgroundImage}
+            imageStyle={{ opacity: 0.8 }}
+        >
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <Text style={styles.title}>Treino de Costas</Text>
+                    {activeExercises.map((exercise, index) => (
+                        <TouchableOpacity
+                            key={exercise.index}
+                            onPress={() => toggleExercise(index)}
+                            style={styles.exerciseContainer}
+                        >
+                            <View style={styles.checkbox} />
+                            <Text style={styles.exerciseText}>{exercise.name}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+                <View style={styles.footer}>
+                    <Button
+                        title={showCompleted ? "Ocultar Concluídos" : "Conferir Concluídos"}
+                        onPress={toggleCompletedVisibility}
+                    />
+                    {showCompleted && (
+                        <View style={styles.completedContainer}>
+                            {completedExercises.length > 0 ? (
+                                completedExercises.map((exercise, index) => (
+                                    <TouchableOpacity
+                                        key={exercise.index}
+                                        onPress={() => unmarkExercise(index)}
+                                        style={styles.exerciseContainer}
+                                    >
+                                        <View style={[styles.checkbox, styles.checkboxChecked]} />
+                                        <Text style={styles.exerciseText}>{exercise.name}</Text>
+                                    </TouchableOpacity>
+                                ))
+                            ) : (
+                                <Text style={styles.noCompletedText}>Não há exercícios concluídos</Text>
+                            )}
+                        </View>
+                    )}
+                </View>
+                {showCongratulations && (
+                    <View style={styles.congratulationsContainer}>
+                        <Text style={styles.congratulationsText}>Parabéns! O de hoje tá pago!</Text>
                     </View>
                 )}
             </View>
-            {showCongratulations && (
-                <View style={styles.congratulationsContainer}>
-                    <Text style={styles.congratulationsText}>Parabéns! O de hoje tá pago! .</Text>
-                </View>
-            )}
-        </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        width: '100%',
     },
     content: {
         flex: 1,
@@ -112,11 +124,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
+        color: '#000',
     },
     exerciseContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
+        backgroundColor: '#fff',
+        padding: 10,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+        elevation: 3,
     },
     checkbox: {
         width: 24,
@@ -132,6 +153,7 @@ const styles = StyleSheet.create({
     },
     exerciseText: {
         fontSize: 16,
+        color: '#000',
     },
     completedContainer: {
         marginTop: 20,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, ImageBackground } from 'react-native';
 import { Button } from 'react-native-paper';
 
 export default function Login({ navigation, setUserData }) {
@@ -12,56 +12,74 @@ export default function Login({ navigation, setUserData }) {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Tela de Login</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Nome de Usuário"
-                value={username}
-                onChangeText={text => setUsername(text)}
-            />
-            <View style={styles.passwordContainer}>
+        <ImageBackground
+            source={require('./Imagens/backgroundgym.png')}
+            style={styles.background}
+            imageStyle={styles.backgroundImage}
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>Tela de Login</Text>
                 <TextInput
-                    style={styles.passwordInput}
-                    placeholder="Senha"
-                    secureTextEntry={!showSenha}
-                    value={senha}
-                    onChangeText={text => setSenha(text)}
+                    style={styles.input}
+                    placeholder="Nome de Usuário"
+                    value={username}
+                    onChangeText={text => setUsername(text)}
+                    placeholderTextColor="rgba(0, 0, 0, 0.7)" // Opacidade 70%
                 />
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        style={styles.passwordInput}
+                        placeholder="Senha"
+                        secureTextEntry={!showSenha}
+                        value={senha}
+                        onChangeText={text => setSenha(text)}
+                        placeholderTextColor="rgba(0, 0, 0, 0.7)" // Opacidade 70%
+                    />
+                    <Button onPress={() => setShowSenha(!showSenha)} style={styles.eyeButton}>
+                        <Image
+                            source={showSenha ? require('./Imagens/ocultar.png') : require('./Imagens/ver.png')}
+                            style={styles.eyeIcon}
+                        />
+                    </Button>
+                </View>
+                <Button mode="contained" onPress={handleLogin}>
+                    Login
+                </Button>
                 <Button
-                    onPress={() => setShowSenha(!showSenha)}
+                    mode="outlined"
+                    onPress={() => navigation.navigate('Cadastro')}
+                    style={styles.cadastroButton}
                 >
-                    {showSenha ? 'Esconder' : 'Mostrar'}
+                    Cadastrar
                 </Button>
             </View>
-            <Button
-                mode="contained"
-                onPress={handleLogin}
-            >
-                Login
-            </Button>
-            <Button
-                mode="outlined"
-                onPress={() => navigation.navigate('Cadastro')}
-                style={styles.cadastroButton}
-            >
-                Cadastrar
-            </Button>
-
-        </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        brightness: -0.7, // Brilho -70
+        contrast: -0.35, // Contraste -35
+        saturate: -0.55, // Destaque -55
+    },
+    backgroundImage: {
+        resizeMode: 'cover',
+        opacity: 0.8, // Opacidade 80%
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
     },
-    text: {
-        fontSize: 24,
-        marginBottom: 20,
+    title: {
+        fontSize: 32,
+        color: '#fff',
+        marginBottom: 40,
     },
     input: {
         width: '100%',
@@ -69,25 +87,36 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#000',
         borderRadius: 5,
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
     },
     passwordContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        width: '100%',
+        position: 'relative',
     },
     passwordInput: {
         flex: 1,
         height: 40,
-        marginBottom: 20,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#000',
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    },
+    eyeButton: {
+        borderWidth: 0, // Remove a borda do botão
+    },
+    eyeIcon: {
+        width: 24,
+        height: 24,
     },
     cadastroButton: {
         marginTop: 10,
         flexDirection: 'row',
+        backgroundColor : 'rgba(255, 255, 255, 0.7)',
     },
 });
