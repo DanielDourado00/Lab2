@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-paper';
 
-export default function Login({ navigation, onLogin }) {
+export default function Login({ navigation, setUserData }) {
     const [username, setUsername] = useState('');
     const [senha, setSenha] = useState('');
     const [showSenha, setShowSenha] = useState(false);
 
     const handleLogin = () => {
-        navigation.navigate('TelaInicio', { username });
-    }
-    
+        navigation.navigate('Main', { username }); // Navega para MainTabs com o parâmetro username
+    };
 
     return (
         <View style={styles.container}>
@@ -35,12 +34,20 @@ export default function Login({ navigation, onLogin }) {
                     {showSenha ? 'Esconder' : 'Mostrar'}
                 </Button>
             </View>
-            <Button 
+            <Button
                 mode="contained"
                 onPress={handleLogin}
             >
                 Login
             </Button>
+            <Button
+                mode="outlined"
+                onPress={() => navigation.navigate('Cadastro')}
+                style={styles.cadastroButton}
+            >
+                Cadastrar
+            </Button>
+
         </View>
     );
 }
@@ -78,5 +85,9 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
+    },
+    cadastroButton: {
+        marginTop: 10,
+        flexDirection: 'row',
     },
 });
