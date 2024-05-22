@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, ImageBackground, Dimensions } from 'react-native';
 
 const initialBackExercises = [
     'Puxada Frontal - 4 séries de 10-12 repetições',
@@ -16,6 +16,7 @@ export default function TelaInicio() {
     const [completedExercises, setCompletedExercises] = useState([]);
     const [showCompleted, setShowCompleted] = useState(false);
     const [showCongratulations, setShowCongratulations] = useState(false);
+    const { width, height } = Dimensions.get('window');
 
     useEffect(() => {
         if (activeExercises.length === 0 && completedExercises.length === initialBackExercises.length) {
@@ -49,7 +50,7 @@ export default function TelaInicio() {
     return (
         <ImageBackground
             source={require("../Imagens/backgroundgym.png")}
-            style={styles.backgroundImage}
+            style={[styles.backgroundImage, { width: width, height: height }]}
             imageStyle={{ opacity: 0.8 }}
         >
             <View style={styles.container}>

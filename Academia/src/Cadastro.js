@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ImageBackground, Dimensions } from 'react-native'; // Importe Dimensions
 import { Button } from 'react-native-paper';
 
 export default function Cadastro({ navigation, setUserData }) {
@@ -13,10 +13,12 @@ export default function Cadastro({ navigation, setUserData }) {
         navigation.navigate('Login'); // Redireciona para a tela de login
     };
 
+    const { width, height } = Dimensions.get('window'); // Obtenha as dimensões da tela
+
     return (
         <ImageBackground
             source={require('./Imagens/backgroundgym.png')}
-            style={styles.background}
+            style={[styles.background, { width, height }]} // Ajuste o estilo da imagem de fundo para ocupar toda a tela
             imageStyle={styles.backgroundImage}
         >
             <View style={styles.container}>
@@ -56,22 +58,17 @@ export default function Cadastro({ navigation, setUserData }) {
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         brightness: -0.9, // Brilho -90
-
+        contrast: -0.35, // Contraste -35
+        saturate: -0.55, // Destaque -55
     },
     backgroundImage: {
         resizeMode: 'cover',
-        brightness: -0.9, // Brilho -90
-        contrast: -0.35, // Contraste -35
-        saturate: -0.55, // Destaque -55
         opacity: 0.8, // Opacidade 80%
-        
     },
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,

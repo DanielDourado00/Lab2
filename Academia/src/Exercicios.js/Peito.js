@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, ImageBackground, Dimensions } from 'react-native';
 
 const initialExercises = [
     'Supino Reto - 4 séries de 8-12 repetições',
@@ -16,6 +16,7 @@ export default function TelaInicio() {
     const [completedExercises, setCompletedExercises] = useState([]);
     const [showCompleted, setShowCompleted] = useState(false);
     const [showCongratulations, setShowCongratulations] = useState(false);
+    const { width, height } = Dimensions.get('window');
 
     useEffect(() => {
         if (activeExercises.length === 0 && completedExercises.length === initialExercises.length) {
@@ -46,6 +47,10 @@ export default function TelaInicio() {
         setShowCompleted(!showCompleted);
     };
 
+    // Calcular o tamanho do texto com base na largura da tela
+    const titleFontSize = Math.round(width * 0.05);
+    const exerciseFontSize = Math.round(width * 0.04);
+
     return (
         <ImageBackground
             source={require("../Imagens/backgroundgym.png")}
@@ -54,7 +59,7 @@ export default function TelaInicio() {
         >
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={styles.title}>Treino de Peito</Text>
+                    <Text style={[styles.title, { fontSize: titleFontSize }]}>Treino de Peito</Text>
                     {activeExercises.map((exercise, index) => (
                         <TouchableOpacity
                             key={exercise.index}
@@ -62,7 +67,7 @@ export default function TelaInicio() {
                             style={styles.exerciseContainer}
                         >
                             <View style={styles.checkbox} />
-                            <Text style={styles.exerciseText}>{exercise.name}</Text>
+                            <Text style={[styles.exerciseText, { fontSize: exerciseFontSize }]}>{exercise.name}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -81,7 +86,7 @@ export default function TelaInicio() {
                                         style={styles.exerciseContainer}
                                     >
                                         <View style={[styles.checkbox, styles.checkboxChecked]} />
-                                        <Text style={styles.exerciseText}>{exercise.name}</Text>
+                                        <Text style={[styles.exerciseText, { fontSize: exerciseFontSize }]}>{exercise.name}</Text>
                                     </TouchableOpacity>
                                 ))
                             ) : (
@@ -105,6 +110,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
     container: {
         flex: 1,
@@ -120,7 +127,6 @@ const styles = StyleSheet.create({
         paddingBottom: 16,
     },
     title: {
-        fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
@@ -152,7 +158,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
     },
     exerciseText: {
-        fontSize: 16,
         color: '#000',
     },
     completedContainer: {

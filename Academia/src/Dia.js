@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Button, FlatList, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const dias = [
@@ -14,36 +14,39 @@ const dias = [
 
 export default function TelaInicio() {
     const [showList, setShowList] = useState(false);
-    const [showButton, setShowButton] = useState(true); // Mostrar o botão inicialmente
+    const [showButton, setShowButton] = useState(true);
     const navigation = useNavigation();
+    const { width, height } = Dimensions.get('window');
 
     useEffect(() => {
-        // Alterar o estado para esconder o botão após o primeiro clique
         if (showList) {
             setShowButton(false);
         }
     }, [showList]);
 
     const handleDayPress = (treino) => {
-        // Navegar para a tela correspondente com base no treino selecionado
         navigation.navigate(treino);
-        // Alterar o estado para mostrar a lista de dias da semana
         setShowList(true);
     };
+
+    // Calcular o tamanho do texto com base na largura da tela
+    const titleFontSize = Math.round(width * 0.04);
+    const buttonFontSize = Math.round(width * 0.035);
 
     return (
         <ImageBackground
             source={require('./Imagens/backgroundgym.png')}
-            style={styles.background}
+            style={[styles.background, { width, height }]}
+            resizeMode="cover"
         >
             <View style={styles.container}>
-                <Text style={styles.title}>Que dia é hoje?</Text>
+                <Text style={[styles.title, { fontSize: titleFontSize }]}>Que dia é hoje?</Text>
                 {showButton && (
                     <Button
                         title="Mostrar dias da semana"
-                        onPress={() => setShowList(true)} // Mostrar a lista de dias
-                        color="#4B0082" // Cor roxa
-                        style={styles.button} // Estilo para botão
+                        onPress={() => setShowList(true)}
+                        color="#4B0082"
+                        style={[styles.button, { fontSize: buttonFontSize }]}
                     />
                 )}
                 {showList && (
@@ -54,8 +57,8 @@ export default function TelaInicio() {
                             <Button
                                 title={item.nome}
                                 onPress={() => handleDayPress(item.treino)}
-                                color="#4B0082" // Cor roxa
-                                style={styles.button} // Estilo para botão
+                                color="#4B0082"
+                                style={[styles.button, { fontSize: buttonFontSize }]}
                             />
                         )}
                         keyExtractor={(item, index) => index.toString()}
@@ -69,29 +72,27 @@ export default function TelaInicio() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        resizeMode: 'cover',
         justifyContent: 'center',
         alignItems: 'center',
-        opacity: 0.8, // Opacidade de 80%
     },
     container: {
         flex: 1,
-        justifyContent: 'flex-start', // Alinhar o conteúdo no topo
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 100, // Distância do topo aumentada para 100
+        paddingTop: 100,
         padding: 16,
     },
     title: {
-        fontSize: 32,
-        fontWeight: 'bold', 
-        color: '#fff', // Cor do texto branco
-        marginBottom: 20,   
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 20,
     },
     list: {
-        marginTop: 20,  // Distância do topo aumentada para 20
+        marginTop: 20,
+        maxHeight: '70%', // Defina a altura máxima da lista como 70% da altura da tela
     },
     button: {
-        borderRadius: 100, // Torna o botão redondo definindo o borderRadius para metade da altura
-        overflow: 'hidden', // Garante que o conteúdo do botão permaneça dentro da borda arredondada
+        borderRadius: 100,
+        overflow: 'hidden',
     },
 });

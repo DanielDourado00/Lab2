@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, ImageBackground, Dimensions } from 'react-native'; // Importe Dimensions
 import { Button } from 'react-native-paper';
 
 export default function Login({ navigation, setUserData }) {
@@ -11,10 +11,12 @@ export default function Login({ navigation, setUserData }) {
         navigation.navigate('Main', { username }); // Navega para MainTabs com o parâmetro username
     };
 
+    const { width, height } = Dimensions.get('window'); // Obtenha as dimensões da tela
+
     return (
         <ImageBackground
             source={require('./Imagens/backgroundgym.png')}
-            style={styles.background}
+            style={[styles.background, { width, height }]} // Ajuste o estilo da imagem de fundo para ocupar toda a tela
             imageStyle={styles.backgroundImage}
         >
             <View style={styles.container}>
@@ -59,7 +61,6 @@ export default function Login({ navigation, setUserData }) {
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         brightness: -0.7, // Brilho -70
@@ -71,7 +72,6 @@ const styles = StyleSheet.create({
         opacity: 0.8, // Opacidade 80%
     },
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,

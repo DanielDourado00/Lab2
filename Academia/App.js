@@ -12,8 +12,9 @@ import Costa from './src/Exercicios.js/Costa';
 import Cardio from './src/Exercicios.js/Cardio';
 import PersonalTrainers from './src/PersonalTrainers';
 import Login from './src/Login';
-import Cadastro from './src/Cadastro'; // Importe a tela de cadastro
-import ListaAlunos from './src/ListaAlunos'; // Importe a tela de listagem de alunos
+import Cadastro from './src/Cadastro';
+import ListaAlunos from './src/ListaAlunos';
+import DimensionsExample from './src/DimensionsExample';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

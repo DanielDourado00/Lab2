@@ -1,22 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { Button } from 'react-native-paper';
 
 export default function TelaInicio({ navigation, username }) {
+    const { width, height } = Dimensions.get('window');
+
     const handleLogout = () => {
-        navigation.navigate('Login'); // Redireciona para a tela de login
+        navigation.navigate('Login');
     };
 
     return (
         <ImageBackground
             source={require('./Imagens/backgroundgym.png')}
-            style={styles.background}
+            style={[styles.background, { width, height }]}
         >
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.text}>Olá {username}!</Text>
-                </View>
-                <View style={styles.buttonsContainer}>
+                <Text style={styles.text}>Olá {username}!</Text>
+                <View style={styles.buttonContainer}>
                     <Button 
                         mode="contained"
                         onPress={() => navigation.navigate('Dia')}
@@ -27,7 +27,7 @@ export default function TelaInicio({ navigation, username }) {
                     <Button 
                         mode="outlined"
                         onPress={handleLogout}
-                        style={[styles.button, styles.logoutButton]} // Adiciona estilos específicos para o botão de logout
+                        style={[styles.button, styles.logoutButton]}
                     >
                         Logout
                     </Button>
@@ -46,28 +46,22 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        width: '100%',
-        padding: 16,
-        justifyContent: 'space-between',
-    },
-    header: {
-        marginTop: 40, // Ajuste conforme necessário
+        justifyContent: 'center',
         alignItems: 'center',
     },
     text: {
         fontSize: 24,
         marginBottom: 20,
-        color: '#fff', // Cor do texto branco para melhor visibilidade
+        color: '#fff',
     },
-    buttonsContainer: {
-        alignItems: 'center',
+    buttonContainer: {
+        marginTop: 20,
+        width: '80%',
     },
     button: {
-        marginTop: 10,
-        width: '80%', // Ajusta a largura do botão
+        marginBottom: 10,
     },
     logoutButton: {
-        marginTop: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fundo branco com 80% de opacidade
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
     },
 });

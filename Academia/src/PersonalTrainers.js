@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 
 const personalTrainers = [
     { id: '1', name: 'Daniel Dourado' },
@@ -9,10 +9,12 @@ const personalTrainers = [
 ];
 
 export default function PersonalTrainers() {
+    const { width, height } = Dimensions.get('window');
+
     return (
         <ImageBackground
             source={require('./Imagens/backgroundgym.png')}
-            style={styles.background}
+            style={[styles.background, { width: width, height: height }]}
         >
             <View style={styles.container}>
                 <FlatList 

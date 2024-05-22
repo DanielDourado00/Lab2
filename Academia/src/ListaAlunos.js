@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
 
 const ListaAlunos = ({ userData }) => {
+    const { width, height } = Dimensions.get('window');
+
     if (!userData || userData.length === 0) {
         return (
             <ImageBackground
                 source={require('./Imagens/backgroundgym.png')}
-                style={styles.background}
+                style={[styles.background, { width: width, height: height }]}
                 imageStyle={styles.imageStyle} // Diminuir a opacidade da imagem de fundo
             >
                 <View style={styles.container}>
@@ -19,7 +21,7 @@ const ListaAlunos = ({ userData }) => {
     return (
         <ImageBackground
             source={require('./Imagens/backgroundgym.png')}
-            style={styles.background}
+            style={[styles.background, { width: width, height: height }]}
             imageStyle={styles.imageStyle} // Diminuir a opacidade da imagem de fundo
         >
             <ScrollView contentContainerStyle={styles.container}>

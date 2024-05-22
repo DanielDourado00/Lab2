@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, SafeAreaView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, SafeAreaView, Dimensions } from "react-native";
 
 let timer = null;
 let ss = 0;
@@ -10,6 +10,7 @@ export default function TelaInicio() {
   const [numero, setNumero] = useState("00:00:00");
   const [botao, setBotao] = useState("Iniciar");
   const [ultimo, setUltimo] = useState(null);
+  const { width, height } = Dimensions.get('window');
 
   function iniciar() {
     if (timer !== null) {
@@ -67,8 +68,8 @@ export default function TelaInicio() {
   return (
     <ImageBackground
       source={require("../Imagens/backgroundgym.png")}
-      style={styles.backgroundImage}
-      imageStyle={{ opacity: 0.8 }} // Opacidade reduzida da imagem de fundo
+      style={[styles.backgroundImage, { width: width, height: height }]}
+      imageStyle={{ opacity: 0.8 }}
     >
       <View style={styles.container}>
         <View style={styles.cronoContainer}>
@@ -76,9 +77,11 @@ export default function TelaInicio() {
           <Text style={styles.timer}>{numero}</Text>
         </View>
         <View style={styles.areaUltimo}>
-          <Text style={styles.textCorrida}>
-            {ultimo ? "Ultimo tempo: " + ultimo : " "}
-          </Text>
+          <View style={styles.box}>
+            <Text style={styles.textCorrida}>
+              {ultimo ? "Ultimo tempo: " + ultimo : " "}
+            </Text>
+          </View>
         </View>
       </View>
       <SafeAreaView style={styles.footer}>
@@ -143,18 +146,21 @@ const styles = StyleSheet.create({
   },
   areaUltimo: {
     marginTop: 45,
-    padding: 10,
+  },
+  box: {
+    borderColor: '#fff',
+    borderWidth: 5,
+    padding: 15,  // Espaçamento interno
+    borderRadius: 5,
     backgroundColor: "#fff",
-    borderRadius: 9,
-    alignItems: "center",
-    justifyContent: "center",
+    opacity: 0.8,
   },
   textCorrida: {
-    fontSize: 20,
+    fontSize: 40,
     color: "#000",
+    fontStyle: "normal",
   },
   footer: {
     justifyContent: "flex-end",
   },
 });
-
