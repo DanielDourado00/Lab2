@@ -1,3 +1,5 @@
+// src/TelaInicio.js
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -37,17 +39,17 @@ export default function TelaInicio() {
             {showButton && (
                 <Button
                     title="Mostrar dias da semana"
-                    onPress={() => handleDayPress("")} // Passar uma string vazia para não navegar para outra tela
+                    onPress={() => setShowList(true)} // Mostrar a lista de dias
                 />
             )}
             {showList && (
-                <FlatList                   // Usar FlatList para exibir a lista de dias
-                    style={styles.list}     
-                    data={dias}             // Passar os dias da semana como dados
-                    renderItem={({ item }) => ( // Renderizar cada item da lista
+                <FlatList
+                    style={styles.list}
+                    data={dias}
+                    renderItem={({ item }) => (
                         <Button
                             title={item.nome}
-                            onPress={() => handleDayPress(item.treino)} // Passar o treino correspondente ao dia
+                            onPress={() => handleDayPress(item.treino)}
                         />
                     )}
                     keyExtractor={(item, index) => index.toString()}

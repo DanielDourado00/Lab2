@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
-
 let timer = null;
 let ss = 0;
 let mm = 0;
 let hh = 0;
-//fazer um cronometro com a imagem que esta em src/Imagens/crono.png
-export default function TelaInicio(){
-    const [numero, setNumero] = useState("00:00:00");
+
+export default function Cardio() {
+  const [numero, setNumero] = useState("00:00:00");
   const [botao, setBotao] = useState("Iniciar");
   const [ultimo, setUltimo] = useState(null);
 
@@ -70,7 +69,7 @@ export default function TelaInicio(){
 
   return (
     <View style={styles.container}>
-      <Image source={require("../Imagens/crono.png")} />
+      <Image source={require("./src/Images/crono.png")} />
       <Text style={styles.timer}>{numero}</Text>
       <View style={styles.btnArea}>
         <TouchableOpacity style={styles.btnButton} onPress={iniciar}>
@@ -92,8 +91,7 @@ export default function TelaInicio(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //cor preto é #
-    backgroundColor: "#000",
+    backgroundColor: "#00aeef",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -120,8 +118,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 20,
     fontWeight: "bold",
-    //cor do texto tem que ser preto
-    color: "#000",
+    color: "#00aeef",
   },
   areaUtimo: {
     marginTop: 45,

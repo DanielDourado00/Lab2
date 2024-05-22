@@ -1,6 +1,5 @@
-// App.js
-
 import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TelaInicio from './src/TelaInicio';
@@ -32,3 +31,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+//para rodar é npx expo start --web
